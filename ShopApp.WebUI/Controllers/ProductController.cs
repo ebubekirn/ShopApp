@@ -19,7 +19,17 @@ namespace ShopApp.WebUI.Controllers
         }
         public IActionResult List()
         {
-            return View();
+            var products = new List<Product>()
+            {
+                new Product {Name="Iphone 8", Price=3000, Description="Telefon"},
+                new Product {Name="Iphone X", Price=6000, Description="Telefon"},
+            };
+
+            var category = new Category() { Name = "Telefonlar", Description = "Telefon kategorisi" };
+
+            ViewBag.Category = category;
+
+            return View(products);
         }
 
         public IActionResult Details(int id)
