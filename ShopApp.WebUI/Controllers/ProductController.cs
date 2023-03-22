@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopApp.WebUI.Models;
+using ShopApp.WebUI.ViewModels;
 
 namespace ShopApp.WebUI.Controllers
 {
@@ -21,15 +22,21 @@ namespace ShopApp.WebUI.Controllers
         {
             var products = new List<Product>()
             {
-                new Product {Name="Iphone 8", Price=3000, Description="Telefon"},
-                new Product {Name="Iphone X", Price=6000, Description="Telefon"},
+                new Product {Name="Iphone 7", Price=3000, Description="Telefon", IsApproved = false},
+                new Product {Name="Iphone 8", Price=6000, Description="Telefon", IsApproved = true},
+                new Product {Name="Iphone X", Price=9000, Description="Telefon", IsApproved = true},
+                new Product {Name="Iphone 1", Price=12000, Description="Telefon"},
             };
 
             var category = new Category() { Name = "Telefonlar", Description = "Telefon kategorisi" };
 
-            ViewBag.Category = category;
+            var productViewModel = new ProductViewModel()
+            {
+                Category = category,
+                Products = products
+            };
 
-            return View(products);
+            return View(productViewModel);
         }
 
         public IActionResult Details(int id)
