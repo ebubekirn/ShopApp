@@ -3,7 +3,7 @@
 @{
     var popularClass = Model.Products.Count > 2 ? "popular" : "";
     var products = Model.Products;
-    var categoryName = Model.Category.Name;
+    var categories = Model.Categories;
 }
 
 <!DOCTYPE html>
@@ -22,47 +22,42 @@
     </style>
 </head>
 <body>
-    @await Html.PartialAsync("_navbar")
-    @*@await Html.PartialAsync("_header")*@
-    <partial name="_header">
-    <main>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h1 class="@popularClass">@categoryName</h1>
-                </div>
-            </div>
-
-            @if (products.Count == 0)
-            {
+    @await Html.PartialAsync("_navbar") @* 1. YOL *@
+    <partial name="_header"> @* 2. YOL => Bu yolu kullanırsak _ViewImports'a partial'ı kullandığımıza dair kod eklemeliyiz. *@
+        <main>
+            <div class="container">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="alert alert-danger">
-                            Ürün Yok
+                    <div class="col-md-3">
+                        @*Kategoriler gelecek*@
+                        <div class="list-group">
+                            @foreach (var category in categories)
+                            {
+                                <a href="#" class="list-group-item list-group-item-action">@category.Name</a>
+                            }
                         </div>
                     </div>
-                </div>
-            }
-            else
-            {
-                <div class="row">
-                    @foreach (var product in products)
-                    {
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img class="card-img-top" src="https://m.media-amazon.com/images/I/71ZiSXOdnhL._AC_SX679_.jpg" />
-                                <div class="card-body">
-                                    <h5 class="card-title">@product.Name</h5>
-                                    <p class="card-text">@product.Description</p>
-                                    <a class="btn btn-primary" href="#">İncele</a>
-                                </div>
+                    <div class="col-md-9">
+                        @*Ürünler gelecek*@
+                        @if (products.Count == 0)
+                        {
+                            @await Html.PartialAsync("_noproduct")
+                        }
+                        else
+                        {
+                            <div class="row">
+                                @foreach (var product in products)
+                                {
+                                    <div class="col-md-3">
+                                        @await Html.PartialAsync("_product", product)
+                                    </div>
+                                }
                             </div>
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
-            }
-        </div>
-    </main>
+               
+            </div>
+        </main>
 </body>
 </html>
 

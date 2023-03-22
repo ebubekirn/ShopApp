@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShopApp.WebUI.Models;
+using ShopApp.WebUI.ViewModels;
 
 namespace ShopApp.WebUI.Controllers
 {
@@ -6,12 +8,28 @@ namespace ShopApp.WebUI.Controllers
     {
         public IActionResult Index()
         {
-            int saat = DateTime.Now.Hour;
+            var products = new List<Product>()
+            {
+                new Product {Name="Iphone 7", Price=3000, Description="Telefon", IsApproved = false},
+                new Product {Name="Iphone 8", Price=6000, Description="Telefon", IsApproved = true},
+                new Product {Name="Iphone X", Price=9000, Description="Telefon", IsApproved = true},
+                new Product {Name="Iphone 1", Price=12000, Description="Telefon"}
+            };
 
-            ViewBag.Greeting = saat > 12 ? "İyi günler" : "Günaydın";
-            ViewBag.UserName = "Ahmet";
+            var categories = new List<Category>()
+            {
+                new Category() { Name = "Telefon", Description = "Telefon kategorisi" },
+                new Category() { Name = "Bilgisayar", Description = "Bilgisayar kategorisi" },
+                new Category() { Name = "Elektronik", Description = "Elektronik kategorisi" },
+            };
 
-            return View();
+            var productViewModel = new ProductViewModel()
+            {
+                Categories = categories,
+                Products = products
+            };
+
+            return View(productViewModel);
         }
 
         public IActionResult About()
