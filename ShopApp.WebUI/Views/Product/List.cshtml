@@ -13,6 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <style>
         .popular {
             color: green;
@@ -21,40 +22,67 @@
     </style>
 </head>
 <body>
-    <h1 class="@popularClass">@categoryName</h1>
+    <div class="navbar bg-primary navbar-dark navbar-expand-sm">
+        <div class="container">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Link1</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Link2</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Link3</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <header>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Shop App</h1>
+                <p class="lead">Lorem isadf isdaf şs asdf sdfa sfdg</p>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="@popularClass">@categoryName</h1>
+                </div>
+            </div>
 
-    @if (products.Count == 0)
-    {
-        <p style="background-color: red">Ürün Yok</p>
-    }
-    else
-    {
-        <ul>
-            @foreach (var product in products)
+            @if (products.Count == 0)
             {
-                @if (product.IsApproved)
-                {
-                    <li>
-                        <div>
-                            <p>@product.Name</p>
-                            <p>@product.Price</p>
-                            <p>@product.Description</p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger">
+                            Ürün Yok
                         </div>
-                    </li>
-                }
-                else
-                {
-                    <li style="background-color: red">
-                        Ürün Satışta Değil
-                    </li>
-                }
+                    </div>
+                </div>
             }
-        </ul>
-    }
-
-
-
-
-
+            else
+            {
+                <div class="row">
+                    @foreach (var product in products)
+                    {
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img class="card-img-top" src="https://m.media-amazon.com/images/I/71ZiSXOdnhL._AC_SX679_.jpg" />
+                                <div class="card-body">
+                                    <h5 class="card-title">@product.Name</h5>
+                                    <p class="card-text">@product.Description</p>
+                                    <a class="btn btn-primary" href="#">İncele</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </main>
 </body>
 </html>
+
