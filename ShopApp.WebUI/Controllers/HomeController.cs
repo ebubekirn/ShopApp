@@ -16,16 +16,8 @@ namespace ShopApp.WebUI.Controllers
                 new Product {Name="Iphone 1", Price=12000, Description="Telefon"}
             };
 
-            var categories = new List<Category>()
-            {
-                new Category() { Name = "Telefon", Description = "Telefon kategorisi" },
-                new Category() { Name = "Bilgisayar", Description = "Bilgisayar kategorisi" },
-                new Category() { Name = "Elektronik", Description = "Elektronik kategorisi" },
-            };
-
             var productViewModel = new ProductViewModel()
             {
-                Categories = categories,
                 Products = products
             };
 
