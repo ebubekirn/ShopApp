@@ -8,15 +8,48 @@
     <title>Document</title>
 </head>
 <body>
+    @if (IsSectionDefined("MessageBox"))
+    {
+        @RenderSection("MessageBox")
+    }
+    else
+    {
+        <div class="alert alert-primary text-center m-0">
+            Welcome
+        </div>
+    }
 
     @await Html.PartialAsync("_navbar")
     <partial name="_header">
-
         <main>
             <div class="container">
-                @RenderBody()
+
+                @if (IsSectionDefined("Categories"))
+                {
+                    <div class="row">
+                        <div class="col-md-3">
+                            @RenderSection("Categories", false)
+                        </div>
+                        <div class="col-md-9">
+                            @RenderBody()
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            @RenderBody()
+                        </div>
+                    </div>
+                }
+
             </div>
         </main>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+        @RenderSection("Scripts", false)
 
 </body>
 </html>
