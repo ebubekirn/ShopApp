@@ -5,53 +5,27 @@
     var products = Model.Products;
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <style>
-        .popular {
-            color: green;
-            font-weight: 700;
+<div class="row">
+    <div class="col-md-3">
+        @*Kategoriler gelecek*@
+        @await Component.InvokeAsync("Categories")
+    </div>
+    <div class="col-md-9">
+        @*Ürünler gelecek*@
+        @if (products.Count == 0)
+        {
+            @await Html.PartialAsync("_noproduct")
         }
-    </style>
-</head>
-<body>
-    @await Html.PartialAsync("_navbar") @* 1. YOL *@
-    <partial name="_header"> @* 2. YOL => Bu yolu kullanırsak _ViewImports'a partial'ı kullandığımıza dair kod eklemeliyiz. *@
-        <main>
-            <div class="container">
-                <div class="row">
+        else
+        {
+            <div class="row">
+                @foreach (var product in products)
+                {
                     <div class="col-md-3">
-                        @*Kategoriler gelecek*@
-                        @await Component.InvokeAsync("Categories")
+                        @await Html.PartialAsync("_product", product)
                     </div>
-                    <div class="col-md-9">
-                        @*Ürünler gelecek*@
-                        @if (products.Count == 0)
-                        {
-                            @await Html.PartialAsync("_noproduct")
-                        }
-                        else
-                        {
-                            <div class="row">
-                                @foreach (var product in products)
-                                {
-                                    <div class="col-md-3">
-                                        @await Html.PartialAsync("_product", product)
-                                    </div>
-                                }
-                            </div>
-                        }
-                    </div>
-                </div>
-               
+                }
             </div>
-        </main>
-</body>
-</html>
-
+        }
+    </div>
+</div>
