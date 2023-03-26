@@ -22,6 +22,10 @@ namespace ShopApp.WebUI.Controllers
 
         public IActionResult List(int? id)
         {
+            //Console.WriteLine(RouteData.Values["controller"]);
+            //Console.WriteLine(RouteData.Values["action"]);
+            //Console.WriteLine(RouteData.Values["id"]);
+
             var products = ProductRepository.Products;
 
             if (id != null)
