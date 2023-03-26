@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShopApp.WebUI.Data;
 using ShopApp.WebUI.Models;
 using ShopApp.WebUI.ViewModels;
 
@@ -18,36 +19,28 @@ namespace ShopApp.WebUI.Controllers
 
             return View(product);
         }
-        public IActionResult List()
-        {
-            var products = new List<Product>()
-            {
-                new Product {Name="Iphone 7", Price=3000, Description="Telefon", IsApproved = false},
-                new Product {Name="Iphone 8", Price=6000, Description="Telefon", IsApproved = true},
-                new Product {Name="Iphone X", Price=9000, Description="Telefon", IsApproved = true},
-                new Product {Name="Iphone 1", Price=12000, Description="Telefon"}
-            };
 
+        public IActionResult List(int? id)
+        {
+            var products = ProductRepository.Products;
+
+            if (id != null)
+            {
+                products = products.Where(p => p.CategoryId == id).ToList();
+            }
             var productViewModel = new ProductViewModel()
             {
                 Products = products
             };
+
 
             return View(productViewModel);
         }
 
         public IActionResult Details(int id)
         {
-            //ViewBag.Name = "samsung s6";
-            //ViewBag.Price = 3000;
-            //ViewBag.Description = "iyi telefon";
 
-            var product = new Product();
-            product.Name = "samsung s6";
-            product.Price = 3000;
-            product.Description = "iyi telefon";
-
-            return View(product);
+            return View(ProductRepository.GetProductById(id));
         }
     }
 }
