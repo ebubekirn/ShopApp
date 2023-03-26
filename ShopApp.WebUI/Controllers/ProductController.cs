@@ -55,5 +55,12 @@ namespace ShopApp.WebUI.Controllers
 
             return View(ProductRepository.GetProductById(id));
         }
+
+        public IActionResult Create(string name, double price)
+        {
+            Console.WriteLine(name);
+            Console.WriteLine(price);
+            return View();
+        }
     }
 }
