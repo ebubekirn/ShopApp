@@ -20,17 +20,26 @@ namespace ShopApp.WebUI.Controllers
             return View(product);
         }
 
-        public IActionResult List(int? id)
+        public IActionResult List(int? id, string q)
         {
             //Console.WriteLine(RouteData.Values["controller"]);
             //Console.WriteLine(RouteData.Values["action"]);
             //Console.WriteLine(RouteData.Values["id"]);
+
+            // QueryString
+            //Console.WriteLine(q);
+            //Console.WriteLine(HttpContext.Request.Query["q"].ToString());
 
             var products = ProductRepository.Products;
 
             if (id != null)
             {
                 products = products.Where(p => p.CategoryId == id).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(q))
+            {
+                products = products.Where(i => i.Name.Contains(q) || i.Description.Contains(q)).ToList();
             }
             var productViewModel = new ProductViewModel()
             {
